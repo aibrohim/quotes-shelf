@@ -8,8 +8,26 @@
   </head>
   <body>
     <div id="root">
-      <h1>{{ title }}</h1>
-      <p>{{ description }}</p>
+      <button @click="handleRandomBookClick">Generate Random Book</button>
+      <ul>
+        <li v-for="book in books">
+          <h1>{{ book.title }}</h1>
+          <p>{{ book.description }}</p>
+          <button
+            @click="handleDeleteBookClick(book.id)"
+            :disabled="!book.onSale"
+            class="hello"
+            :class="{ disable: !book.onSale, enable: book.onSale }"
+          >
+            DELETE
+          </button>
+          <a :href="img" target="_blank">
+            <img :src="book.img" :alt="book.description" />
+          </a>
+          <p v-if="book.onSale">This book is on sale</p>
+          <p v-else="book.onSale">This book is not on sale</p>
+        </li>
+      </ul>
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
