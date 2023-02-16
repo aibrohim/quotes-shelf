@@ -44,6 +44,7 @@ const app = Vue.createApp({
       ];
     },
     handleDeleteBookClick(id) {
+      console.log(id);
       const deletingBookIndex = this.books.findIndex((book) => book.id === id);
 
       this.books = [

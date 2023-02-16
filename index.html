@@ -9,29 +9,21 @@
   <body>
     <div id="root">
       <button @click="handleRandomBookClick">Generate Random Book</button>
-      <ul>
-        <li v-for="book in books">
-          <h1>{{ book.title }}</h1>
-          <p>{{ book.description }}</p>
-          <button
-            @click="handleDeleteBookClick(book.id)"
-            :disabled="!book.onSale"
-            class="hello"
-            :class="{ disable: !book.onSale, enable: book.onSale }"
-          >
-            DELETE
-          </button>
-          <a :href="img" target="_blank">
-            <img :src="book.img" :alt="book.description" />
-          </a>
-          <p v-if="book.onSale">This book is on sale</p>
-          <p v-else="book.onSale">This book is not on sale</p>
-        </li>
-      </ul>
+      <div style="display: flex">
+        <ul>
+          <book-item
+            v-for="book in books"
+            :book="book"
+            :key="book.id"
+            @on-delete-click="handleDeleteBookClick"
+          ></book-item>
+        </ul>
+      </div>
     </div>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="js/main.js"></script>
+    <script src="components/book.js"></script>
 
     <script>
       app.mount("#root");
