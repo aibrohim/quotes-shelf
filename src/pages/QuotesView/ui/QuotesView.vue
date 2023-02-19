@@ -1,13 +1,13 @@
 <script>
-import FieldInput from "@/shared/ui/FieldInput.vue";
-import FieldSelect from "@/shared/ui/FieldSelect.vue";
+import FilterQuotes from "@/widgets/FilterQuotes/ui/FilterQuotes.vue";
+import QuotesList from "@/widgets/QuotesList/ui/QuotesList.vue";
 
 const handleInputChange = (evt) => console.log(evt.target.value);
 
 export default {
   components: {
-    FieldInput,
-    FieldSelect,
+    FilterQuotes,
+    QuotesList,
   },
   methods: {
     handleInputChange,
@@ -28,11 +28,12 @@ export default {
 </script>
 
 <template>
-  <FieldInput name="title" class="hello" @input="handleInputChange" />
-  <FieldSelect
-    name="genre"
-    class="mello"
-    @input="handleInputChange"
-    :options="options"
-  />
+  <div class="row">
+    <div class="col-3">
+      <FilterQuotes />
+    </div>
+    <div class="col-9">
+      <QuotesList />
+    </div>
+  </div>
 </template>

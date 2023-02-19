@@ -1,3 +1,8 @@
+<script setup>
+import QuoteForm from "@/widgets/QuoteForm/ui/QuoteForm.vue";
+import EditButtons from "@/widgets/EditButtons/ui/EditButtons.vue";
+</script>
+
 <template>
-  <h1>Edit Quote page</h1>
+  <QuoteForm title="Edit"><EditButtons /></QuoteForm>
 </template>

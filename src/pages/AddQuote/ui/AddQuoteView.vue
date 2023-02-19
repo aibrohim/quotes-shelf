@@ -1,3 +1,8 @@
+<script setup>
+import QuoteForm from "@/widgets/QuoteForm/ui/QuoteForm.vue";
+import AddButtons from "@/widgets/AddButtons/ui/AddButtons.vue";
+</script>
+
 <template>
-  <h1>Add Quote View</h1>
+  <QuoteForm title="Add Quote"><AddButtons /></QuoteForm>
 </template>
