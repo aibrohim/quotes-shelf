@@ -50,7 +50,7 @@ export default {
 
 <template>
   <FieldSelect
-    name="genre"
+    name="genres"
     :options="genresOptions"
     @change="handleGenreSelect($event.target.value)"
   />

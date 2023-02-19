@@ -13,7 +13,7 @@ export default {
     const handleDeleteClick = () => {
       const quoteId = props.quote.id;
       isDeleting.value = true;
-      store.dispatch("deleteQuotes", quoteId).then(() => {
+      store.dispatch("deleteQuotes", quoteId).finally(() => {
         isDeleting.value = false;
       });
     };

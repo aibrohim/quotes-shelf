@@ -8,8 +8,8 @@ import FieldSelect from "@/shared/ui/FieldSelect.vue";
 import MainBtn from "@/shared/ui/MainBtn.vue";
 
 const sortOptions = [
-  { value: "created_date:asc", label: "Created Date (ascending)" },
-  { value: "created_date:desc", label: "Created Date (descending)" },
+  { value: "createdAt:asc", label: "Created Date (ascending)" },
+  { value: "createdAt:desc", label: "Created Date (descending)" },
   { value: "quote:asc", label: "Quote (ascending)" },
   { value: "quote:desc", label: "Quote (descending)" },
 ];

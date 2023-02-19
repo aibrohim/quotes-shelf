@@ -26,6 +26,17 @@ export const store = createStore({
           return data.data;
         });
     },
+    addQuote({ state }, values) {
+      return axiosInstance
+        .post("", {
+          createdAt: new Date().toString(),
+          ...values,
+        })
+        .then((data) => {
+          state.quotes = state.quotes ? [data.data, ...state.quotes] : null;
+          return data.data;
+        });
+    },
     deleteQuotes({ state }, quoteId) {
       return axiosInstance.delete("" + quoteId).then((data) => {
         state.quotes = state.quotes.filter((quote) => quote.id !== quoteId);
