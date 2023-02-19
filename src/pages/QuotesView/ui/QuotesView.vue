@@ -3,32 +3,20 @@ import FilterQuotes from "@/widgets/FilterQuotes/ui/FilterQuotes.vue";
 import QuotesList from "@/widgets/QuotesList/ui/QuotesList.vue";
 
 import { store } from "@/app/store";
-
-const handleInputChange = (evt) => console.log(evt.target.value);
+import { onMounted } from "vue";
 
 export default {
   components: {
     FilterQuotes,
     QuotesList,
   },
-  methods: {
-    handleInputChange,
+  setup() {
+    onMounted(() => {
+      if (!store.state.quotes) {
+        store.dispatch("getQuotes");
+      }
+    });
   },
-  created() {
-    store.dispatch("getQuotes");
-  },
-  data: () => ({
-    options: [
-      {
-        value: 1,
-        label: "hello",
-      },
-      {
-        value: 2,
-        label: "mello",
-      },
-    ],
-  }),
 };
 </script>
 

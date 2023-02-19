@@ -26,6 +26,6 @@ const handleFormSubmit = (values) => {
 
 <template>
   <QuoteForm title="Add Quote" @submit="handleFormSubmit"
-    ><AddButtons
+    ><AddButtons :isSubmitting="isSubmitting"
   /></QuoteForm>
 </template>

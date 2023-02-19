@@ -10,9 +10,9 @@ import GenresSelect from "@/entities/GenresSelect/ui/GenresSelect.vue";
 import { validationSchema } from "../constants";
 
 export default {
-  props: ["title"],
+  props: ["title", "initialValues"],
   emits: ["submit"],
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const {
       errors,
       values,
@@ -26,6 +26,7 @@ export default {
         quote: "",
         author: "",
         genres: [],
+        ...(props.initialValues || {}),
       },
     });
 

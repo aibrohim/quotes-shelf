@@ -45,6 +45,8 @@ const handleFilterSubmit = (evt) => {
       <FieldSelect name="sort" :options="sortOptions" />
     </FieldItem>
 
-    <MainBtn class="d-block w-100">Filter</MainBtn>
+    <MainBtn :disabled="$store.state.loading" class="d-block w-100">{{
+      $store.state.loading ? "Fetching..." : "Filter"
+    }}</MainBtn>
   </form>
 </template>

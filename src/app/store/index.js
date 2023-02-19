@@ -14,26 +14,46 @@ export const store = createStore({
     },
   },
   actions: {
-    getQuotes({ commit, state }, params = {}) {
-      commit("setLoading", true);
+    getQuotes({ state }, params = {}) {
+      state.loading = true;
       return axiosInstance
         .get("", {
           params,
         })
         .then((data) => {
           state.quotes = data.data;
-          commit("setLoading", false);
+          state.loading = false;
           return data.data;
         });
     },
     addQuote({ state }, values) {
       return axiosInstance
         .post("", {
-          createdAt: new Date().toString(),
+          createdAt: new Date().toISOString(),
           ...values,
         })
         .then((data) => {
           state.quotes = state.quotes ? [data.data, ...state.quotes] : null;
+          return data.data;
+        });
+    },
+    editQuote({ state }, values) {
+      return axiosInstance
+        .patch("" + values.id, {
+          modifiedAt: new Date().toISOString(),
+          ...values,
+        })
+        .then((data) => {
+          if (state.quotes) {
+            const changedItemIndex = state.quotes.findIndex(
+              (quote) => quote.id === values.id
+            );
+            state.quotes = [
+              ...state.quotes.slice(0, changedItemIndex),
+              data.data,
+              ...state.quotes.slice(changedItemIndex + 1),
+            ];
+          }
           return data.data;
         });
     },
