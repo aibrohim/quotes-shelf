@@ -26,5 +26,11 @@ export const store = createStore({
           return data.data;
         });
     },
+    deleteQuotes({ state }, quoteId) {
+      return axiosInstance.delete("" + quoteId).then((data) => {
+        state.quotes = state.quotes.filter((quote) => quote.id !== quoteId);
+        return data.data;
+      });
+    },
   },
 });
