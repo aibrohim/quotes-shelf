@@ -7,10 +7,6 @@ import Container from "@/shared/ui/ElContainer.vue";
 <template>
   <PageHeader />
 
-  <Vueform>
-    <TextElement name="hello_world" label="Hello" placeholder="World" />
-  </Vueform>
-
   <Container class="pt-4 pb-4">
     <RouterView />
   </Container>

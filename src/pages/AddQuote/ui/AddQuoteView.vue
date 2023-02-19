@@ -1,3 +1,7 @@
+<script setup>
+import QuoteForm from "@/widgets/QuoteForm/ui/QuoteForm.vue";
+</script>
+
 <template>
-  <h1>Add Quote View</h1>
+  <QuoteForm title="Add Quote" />
 </template>
