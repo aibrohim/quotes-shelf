@@ -2,7 +2,7 @@
 import { ref, reactive, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-import { store } from "@/app/store";
+import { store } from "@/shared/store";
 
 import QuoteForm from "@/widgets/QuoteForm/ui/QuoteForm.vue";
 import EditButtons from "@/widgets/EditButtons/ui/EditButtons.vue";

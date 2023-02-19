@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 
-import { store } from "@/app/store";
+import { store } from "@/shared/store";
 import MainBtn from "@/shared/ui/MainBtn.vue";
 
 export default {

@@ -2,8 +2,8 @@ import { createApp } from "vue";
 
 import App from "./App.vue";
 
+import { store } from "@/shared/store";
 import { router } from "./providers";
-import { store } from "./store";
 
 import "@/shared/assets/main.css";
 

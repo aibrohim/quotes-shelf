@@ -1,5 +1,5 @@
 <script setup>
-import { store } from "@/app/store";
+import { store } from "@/shared/store";
 
 import FieldItem from "@/entities/FieldItem/ui/FieldItem.vue";
 

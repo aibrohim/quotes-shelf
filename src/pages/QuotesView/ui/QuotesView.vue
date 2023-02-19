@@ -2,7 +2,7 @@
 import FilterQuotes from "@/widgets/FilterQuotes/ui/FilterQuotes.vue";
 import QuotesList from "@/widgets/QuotesList/ui/QuotesList.vue";
 
-import { store } from "@/app/store";
+import { store } from "@/shared/store";
 import { onMounted } from "vue";
 
 export default {
