@@ -10,9 +10,9 @@ import GenresSelect from "@/entities/GenresSelect/ui/GenresSelect.vue";
 import { validationSchema } from "../constants";
 
 export default {
-  props: ["title"],
-  emits: ["onsubmit"],
-  setup(_, { emit }) {
+  props: ["title", "initialValues"],
+  emits: ["submit"],
+  setup(props, { emit }) {
     const {
       errors,
       values,
@@ -23,20 +23,21 @@ export default {
     } = useForm({
       validationSchema,
       initialValues: {
-        body: "",
+        quote: "",
         author: "",
         genres: [],
+        ...(props.initialValues || {}),
       },
     });
 
-    const [body, author] = useFieldModel(["body", "author"]);
+    const [quote, author] = useFieldModel(["quote", "author"]);
 
     const handlesGenreSelect = (selectedGenres) => {
       setFieldValue("genres", selectedGenres);
     };
 
     const onSubmit = handleSubmit((values) => {
-      emit(values);
+      emit("submit", values);
     });
 
     const onReset = () => {
@@ -48,7 +49,7 @@ export default {
     });
 
     return {
-      body,
+      quote,
       author,
       errors,
       values,
@@ -70,15 +71,16 @@ export default {
     <div class="card-body">
       <h1 class="h3 text-left card-title">{{ title }}</h1>
       <form @submit="onSubmit" @reset="onReset">
-        <FieldItem label="Quote" :error="errors.body">
-          <FieldInput v-model="body" name="body" />
+        <FieldItem name="quote" label="Quote" :error="errors.quote">
+          <FieldInput v-model="quote" name="quote" placeholder="Quote text" />
         </FieldItem>
-        <FieldItem label="Author" :error="errors.author">
-          <FieldInput name="author" v-model="author" />
+        <FieldItem label="Author" name="author" :error="errors.author">
+          <FieldInput name="author" v-model="author" placeholder="Author" />
         </FieldItem>
 
-        <FieldItem label="Genres" :error="errors.genres">
+        <FieldItem label="Genres" name="genres" :error="errors.genres">
           <GenresSelect
+            name="genres"
             @onchange="handlesGenreSelect"
             :genres="values.genres"
           />

@@ -1,16 +1,8 @@
 <script>
-import FieldSelect from "@/shared/ui/FieldSelect.vue";
 import { ref, computed, watch } from "vue";
 
-const allGenres = [
-  "Motivation",
-  "Inspiration",
-  "Positive",
-  "Life",
-  "Funny",
-  "Attitude",
-  "Alone",
-];
+import FieldSelect from "@/shared/ui/FieldSelect.vue";
+import { allGenres } from "@/shared/constants";
 
 export default {
   props: ["genres"],
@@ -58,7 +50,7 @@ export default {
 
 <template>
   <FieldSelect
-    name="genre"
+    name="genres"
     :options="genresOptions"
     @change="handleGenreSelect($event.target.value)"
   />

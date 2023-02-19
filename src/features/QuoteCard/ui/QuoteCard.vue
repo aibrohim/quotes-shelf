@@ -1,28 +1,58 @@
 <script>
-import MainBtn from "@/shared/ui/MainBtn.vue";
+import { ref } from "vue";
 import { RouterLink } from "vue-router";
+
+import { store } from "@/shared/store";
+import MainBtn from "@/shared/ui/MainBtn.vue";
 
 export default {
   props: ["quote"],
-  components: { MainBtn, RouterLink },
+  setup(props) {
+    const isDeleting = ref(false);
+
+    const handleDeleteClick = () => {
+      const quoteId = props.quote.id;
+      isDeleting.value = true;
+      store.dispatch("deleteQuotes", quoteId).finally(() => {
+        isDeleting.value = false;
+      });
+    };
+
+    console.log(isDeleting.value);
+
+    return {
+      isDeleting,
+      handleDeleteClick,
+    };
+  },
+  components: { RouterLink, MainBtn },
 };
 </script>
 <template>
-  <div class="card position-relative">
+  <div class="card position-relative mb-2">
     <div class="card-body">
-      <blockquote class="blockquote">
-        <p>"{{ quote.text }}"</p>
-      </blockquote>
+      <RouterLink :to="/quote/ + quote.id + '/edit'">
+        <blockquote class="blockquote">
+          <p>"{{ quote.quote }}"</p>
+        </blockquote>
+      </RouterLink>
       <p class="fst-italic">- {{ quote.author }}</p>
-    </div>
+      <div class="d-flex">
+        <span
+          class="badge bg-primary me-1"
+          v-for="genre in quote.genres"
+          :key="genre"
+          >{{ genre }}</span
+        >
+      </div>
 
-    <div class="me-0 position-absolute top-0 end-0">
-      <RouterLink
-        :to="/quote/ + quote.id + '/edit'"
-        class="btn btn-secondary me-1"
-        >Edit</RouterLink
+      <MainBtn
+        :disabled="isDeleting"
+        @click="handleDeleteClick"
+        color="danger"
+        class="mt-2 btn-sm"
+        >{{ isDeleting ? "Deleting..." : "Delete" }}</MainBtn
       >
-      <MainBtn color="danger">Delete</MainBtn>
     </div>
   </div>
 </template>
