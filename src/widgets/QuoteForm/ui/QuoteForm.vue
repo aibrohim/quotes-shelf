@@ -1,35 +1,51 @@
 <script>
+import { watch } from "vue";
+
 import { useForm } from "vee-validate";
 
 import FieldItem from "@/entities/FieldItem/ui/FieldItem.vue";
 import FieldInput from "@/shared/ui/FieldInput.vue";
-
-import { validationSchema } from "../consts";
 import GenresSelect from "@/entities/GenresSelect/ui/GenresSelect.vue";
+
+import { validationSchema } from "../constants";
 
 export default {
   props: ["title"],
   emits: ["onsubmit"],
   setup(_, { emit }) {
-    const { errors, values, handleSubmit, useFieldModel, setFieldValue } =
-      useForm({
-        validationSchema,
-        initialValues: {
-          body: "",
-          author: "",
-          genres: [],
-        },
-      });
+    const {
+      errors,
+      values,
+      handleSubmit,
+      useFieldModel,
+      setFieldValue,
+      resetForm,
+    } = useForm({
+      validationSchema,
+      initialValues: {
+        body: "",
+        author: "",
+        genres: [],
+      },
+    });
 
     const [body, author] = useFieldModel(["body", "author"]);
+
+    const handlesGenreSelect = (selectedGenres) => {
+      setFieldValue("genres", selectedGenres);
+    };
 
     const onSubmit = handleSubmit((values) => {
       emit(values);
     });
 
-    const handlesGenreSelect = (selectedGenres) => {
-      setFieldValue("genres", selectedGenres);
+    const onReset = () => {
+      resetForm();
     };
+
+    watch(values, () => {
+      console.log({ ...values });
+    });
 
     return {
       body,
@@ -37,6 +53,7 @@ export default {
       errors,
       values,
       onSubmit,
+      onReset,
       handlesGenreSelect,
     };
   },
@@ -49,10 +66,10 @@ export default {
 </script>
 
 <template>
-  <div class="card">
+  <div class="card col-12 col-md-9 col-lg-6 mx-auto">
     <div class="card-body">
       <h1 class="h3 text-left card-title">{{ title }}</h1>
-      <form @submit="onSubmit">
+      <form @submit="onSubmit" @reset="onReset">
         <FieldItem label="Quote" :error="errors.body">
           <FieldInput v-model="body" name="body" />
         </FieldItem>
@@ -61,9 +78,12 @@ export default {
         </FieldItem>
 
         <FieldItem label="Genres" :error="errors.genres">
-          <GenresSelect @onchange="handlesGenreSelect" />
+          <GenresSelect
+            @onchange="handlesGenreSelect"
+            :genres="values.genres"
+          />
         </FieldItem>
-        <button type="submit">Submit</button>
+        <slot />
       </form>
     </div>
   </div>

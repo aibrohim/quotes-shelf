@@ -38,6 +38,11 @@ export default {
       emit("onchange", [...selectedGenres.value]);
     });
 
+    watch(props.genres, () => {
+      console.log(props.genres);
+      selectedGenres.value = props.genres;
+    });
+
     return {
       genresOptions,
       selectedGenres,
