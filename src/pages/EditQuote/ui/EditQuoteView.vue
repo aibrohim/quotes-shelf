@@ -49,6 +49,7 @@ export default {
     :title="'Edit #' + id"
     @submit="handleFormSubmit"
     :initialValues="quote.quote"
-    ><EditButtons :isSubmitting="isSubmitting"
-  /></QuoteForm>
+  >
+    <EditButtons :isSubmitting="isSubmitting" />
+  </QuoteForm>
 </template>
