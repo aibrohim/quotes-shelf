@@ -4,25 +4,27 @@ import { RouterLink } from "vue-router";
 
 export default {
   props: ["quote"],
-  components: { MainBtn, RouterLink },
+  components: { RouterLink, MainBtn },
 };
 </script>
 <template>
-  <div class="card position-relative">
+  <div class="card position-relative mb-2">
     <div class="card-body">
-      <blockquote class="blockquote">
-        <p>"{{ quote.text }}"</p>
-      </blockquote>
+      <RouterLink :to="/quote/ + quote.id + '/edit'">
+        <blockquote class="blockquote">
+          <p>"{{ quote.quote }}"</p>
+        </blockquote>
+      </RouterLink>
       <p class="fst-italic">- {{ quote.author }}</p>
-    </div>
-
-    <div class="me-0 position-absolute top-0 end-0">
-      <RouterLink
-        :to="/quote/ + quote.id + '/edit'"
-        class="btn btn-secondary me-1"
-        >Edit</RouterLink
-      >
-      <MainBtn color="danger">Delete</MainBtn>
+      <div class="d-flex">
+        <span
+          class="badge bg-primary me-1"
+          v-for="genre in quote.genres"
+          :key="genre"
+          >{{ genre }}</span
+        >
+      </div>
+      <MainBtn color="danger" class="mt-2 btn-sm">Delete</MainBtn>
     </div>
   </div>
 </template>

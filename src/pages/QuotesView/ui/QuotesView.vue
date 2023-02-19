@@ -2,6 +2,8 @@
 import FilterQuotes from "@/widgets/FilterQuotes/ui/FilterQuotes.vue";
 import QuotesList from "@/widgets/QuotesList/ui/QuotesList.vue";
 
+import { store } from "@/app/store";
+
 const handleInputChange = (evt) => console.log(evt.target.value);
 
 export default {
@@ -11,6 +13,9 @@ export default {
   },
   methods: {
     handleInputChange,
+  },
+  created() {
+    store.dispatch("getQuotes");
   },
   data: () => ({
     options: [
@@ -29,10 +34,10 @@ export default {
 
 <template>
   <div class="row">
-    <div class="col-3">
+    <div class="col-12 col-lg-3 mb-3">
       <FilterQuotes />
     </div>
-    <div class="col-9">
+    <div class="col-12 col-lg-9">
       <QuotesList />
     </div>
   </div>
