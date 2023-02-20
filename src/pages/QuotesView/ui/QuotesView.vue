@@ -24,13 +24,13 @@ export default {
 </script>
 
 <template>
-  <LoadingSpinner v-if="$store.state.loading" />
-  <div v-else class="row">
+  <div class="row">
     <div class="col-12 col-lg-3 mb-3">
       <FilterQuotes />
     </div>
     <div class="col-12 col-lg-9">
-      <QuotesList />
+      <LoadingSpinner v-if="$store.state.loading" />
+      <QuotesList v-else />
     </div>
   </div>
 </template>
