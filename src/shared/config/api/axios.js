@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/quotes",
+  baseURL: "https://quote.n51projects.click/quotes",
 });
