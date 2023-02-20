@@ -46,7 +46,7 @@ const handleFilterSubmit = (evt) => {
       <FieldInput name="author_like" placeholder="Author name" />
     </FieldItem>
     <FieldItem name="sort" label="Sort">
-      <FieldSelect name="sort" :options="sortOptions" />
+      <FieldSelect name="sort" value="createdAt:desc" :options="sortOptions" />
     </FieldItem>
 
     <MainBtn :disabled="$store.state.loading" class="d-block w-100">{{

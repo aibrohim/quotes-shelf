@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 
-import MainBtn from "@/shared/ui/MainBtn.vue";
+import RandomQuote from "@/features/RandomQuote/ui/RandomQuote.vue";
 
 const show = ref(false);
 
@@ -14,7 +14,7 @@ const handleTogglerClick = () => (show.value = !show.value);
     <div class="container d-flex">
       <a class="navbar-brand me-auto" href="#"><em>Clever words</em></a>
 
-      <MainBtn class="ms-auto me-2">Generate Random Quote</MainBtn>
+      <RandomQuote />
       <button
         class="navbar-toggler"
         type="button"
