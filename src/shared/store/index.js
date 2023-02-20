@@ -18,7 +18,11 @@ export const store = createStore({
       state.loading = true;
       return axiosInstance
         .get("", {
-          params,
+          params: {
+            _sort: "createdAt",
+            _order: "desc",
+            ...params,
+          },
         })
         .then((data) => {
           state.quotes = data.data;
