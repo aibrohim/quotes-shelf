@@ -1,22 +1,18 @@
 <script setup>
+import { ref } from "vue";
+
 import { store } from "@/shared/store";
 
 import FieldItem from "@/entities/FieldItem/ui/FieldItem.vue";
+import GenresSelect from "@/entities/GenresSelect/ui/GenresSelect.vue";
 
 import FieldInput from "@/shared/ui/FieldInput.vue";
 import FieldSelect from "@/shared/ui/FieldSelect.vue";
 import MainBtn from "@/shared/ui/MainBtn.vue";
 
-const sortOptions = [
-  { value: "quote:asc", label: "Quote (ascending)" },
-  { value: "quote:desc", label: "Quote (descending)" },
-  { value: "author:asc", label: "Author (ascending)" },
-  { value: "author:desc", label: "Author (descending)" },
-  { value: "createdAt:asc", label: "Created Date (ascending)" },
-  { value: "createdAt:desc", label: "Created Date (descending)" },
-  { value: "modifiedAt:asc", label: "Modified Date (ascending)" },
-  { value: "modifiedAt:desc", label: "Modified Date (descending)" },
-];
+import { sortOptions } from "../constants";
+
+const selectedGenres = ref([]);
 
 const handleFilterSubmit = (evt) => {
   evt.preventDefault();
@@ -30,10 +26,14 @@ const handleFilterSubmit = (evt) => {
   store.dispatch("getQuotes", {
     quote_like,
     author_like,
+    genres: selectedGenres.value.join(","),
     _sort: sort.split(":")[0],
     _order: sort.split(":")[1],
   });
 };
+
+const handleGenresChange = (newSelectedGenres) =>
+  (selectedGenres.value = newSelectedGenres);
 </script>
 
 <template>
@@ -44,6 +44,9 @@ const handleFilterSubmit = (evt) => {
     </FieldItem>
     <FieldItem name="author_like" label="Search (by author)">
       <FieldInput name="author_like" placeholder="Author name" />
+    </FieldItem>
+    <FieldItem name="genres" label="Sort">
+      <GenresSelect name="genres" @onchange="handleGenresChange" />
     </FieldItem>
     <FieldItem name="sort" label="Sort">
       <FieldSelect name="sort" value="createdAt:desc" :options="sortOptions" />
