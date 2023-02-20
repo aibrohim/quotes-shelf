@@ -14,8 +14,8 @@ export const store = createStore({
     },
   },
   actions: {
-    getQuotes({ state }, params = {}) {
-      state.loading = true;
+    getQuotes({ state, commit }, params = {}) {
+      commit("setLoading", true);
       return axiosInstance
         .get("", {
           params: {
@@ -26,8 +26,10 @@ export const store = createStore({
         })
         .then((data) => {
           state.quotes = data.data;
-          state.loading = false;
           return data.data;
+        })
+        .finally(() => {
+          commit("setLoading", false);
         });
     },
     addQuote({ state }, values) {

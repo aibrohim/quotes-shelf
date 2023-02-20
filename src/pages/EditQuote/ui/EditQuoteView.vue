@@ -7,6 +7,8 @@ import { store } from "@/shared/store";
 import QuoteForm from "@/widgets/QuoteForm/ui/QuoteForm.vue";
 import EditButtons from "@/widgets/EditButtons/ui/EditButtons.vue";
 
+import LoadingSpinner from "@/shared/ui/LoadingSpinner.vue";
+
 import { axiosInstance } from "@/shared/config/api";
 
 export default {
@@ -17,8 +19,14 @@ export default {
     const id = useRoute().params.id;
     const router = useRouter();
 
+    const isLoading = ref(false);
+
     onMounted(() => {
-      axiosInstance.get("" + id).then((data) => (quote.quote = data.data));
+      isLoading.value = true;
+      axiosInstance
+        .get("" + id)
+        .then((data) => (quote.quote = data.data))
+        .finally(() => (isLoading.value = false));
     });
 
     const handleFormSubmit = (values) => {
@@ -39,13 +47,14 @@ export default {
       handleFormSubmit,
     };
   },
-  components: { QuoteForm, EditButtons },
+  components: { QuoteForm, EditButtons, LoadingSpinner },
 };
 </script>
 
 <template>
+  <LoadingSpinner v-if="!quote.quote" />
   <QuoteForm
-    v-if="quote.quote"
+    v-if="quote.quote && !isLoading"
     :title="'Edit #' + id"
     @submit="handleFormSubmit"
     :initialValues="quote.quote"
